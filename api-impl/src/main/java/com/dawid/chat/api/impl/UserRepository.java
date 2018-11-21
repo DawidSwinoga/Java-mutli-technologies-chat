@@ -1,5 +1,6 @@
 package com.dawid.chat.api.impl;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -11,4 +12,6 @@ public interface UserRepository {
     Optional<User> getUserById(String id);
 
     void remove(User user);
+
+    Collection<String> getAllUsersIds();
 }

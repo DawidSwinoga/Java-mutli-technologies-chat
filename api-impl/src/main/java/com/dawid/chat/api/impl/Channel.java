@@ -1,15 +1,17 @@
 package com.dawid.chat.api.impl;
 
-import com.dawid.chat.api.ChannelInfo;
-import com.dawid.chat.api.MessageDto;
-import com.dawid.chat.api.UserIsNotChannelMemberException;
+import com.dawid.chat.api.channel.ChannelInfo;
+import com.dawid.chat.api.message.MessageDto;
+import com.dawid.chat.api.user.UserIsNotChannelMemberException;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * Created by Dawid on 17.11.2018 at 15:17.
@@ -72,5 +74,9 @@ public class Channel {
 
     public void addMessage(User user, String text) {
         messages.add(new Message(user, text));
+    }
+
+    public Collection<String> getMembersIds() {
+        return users.stream().map(User::getToken).collect(toSet());
     }
 }

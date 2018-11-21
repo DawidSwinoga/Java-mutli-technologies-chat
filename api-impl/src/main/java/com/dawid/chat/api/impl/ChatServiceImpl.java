@@ -1,12 +1,10 @@
 package com.dawid.chat.api.impl;
 
-import com.dawid.chat.api.BlockingChatService;
-import com.dawid.chat.api.ChannelInfo;
-import com.dawid.chat.api.ChannelMessageDto;
-import com.dawid.chat.api.ChannelUserChangeDto;
-import com.dawid.chat.api.Credential;
-import com.dawid.chat.api.MessageDto;
-import com.dawid.chat.api.MessageToSend;
+import com.dawid.chat.api.ChatService;
+import com.dawid.chat.api.channel.ChannelInfo;
+import com.dawid.chat.api.message.MessageDto;
+import com.dawid.chat.api.message.MessageToSend;
+import com.dawid.chat.api.user.credential.Credential;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,35 +16,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BlockingChatImpl implements BlockingChatService {
+public class ChatServiceImpl implements ChatService {
     private final UserService userService;
     private final ChannelService channelService;
-    private final BlockingMessageNotificator messageNotificator;
-
-    @Override
-    public ChannelMessageDto listenOnChannelMessage(Credential credential) {
-        return messageNotificator.listenOnChannelMessage(credential);
-    }
-
-    @Override
-    public ChannelUserChangeDto listenOnUserJoin(Credential credential) {
-        return messageNotificator.listenOnUserJoin(credential);
-    }
-
-    @Override
-    public ChannelUserChangeDto listenOnUserLeave(Credential credential) {
-        return messageNotificator.listenOnUserLeave(credential);
-    }
-
-    @Override
-    public ChannelInfo listenOnChannelAdd(Credential credential) {
-        return messageNotificator.listenOnChannelAdd(credential);
-    }
-
-    @Override
-    public ChannelInfo listenOnChannelRemove(Credential credential) {
-        return messageNotificator.listenOnChannelRemove(credential);
-    }
 
     @Override
     public Credential loginUser(String username) {

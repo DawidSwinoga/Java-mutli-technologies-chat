@@ -1,5 +1,10 @@
 package com.dawid.chat.api;
 
+import com.dawid.chat.api.channel.ChannelInfo;
+import com.dawid.chat.api.message.MessageDto;
+import com.dawid.chat.api.message.MessageToSend;
+import com.dawid.chat.api.user.credential.Credential;
+
 import java.util.List;
 
 /**

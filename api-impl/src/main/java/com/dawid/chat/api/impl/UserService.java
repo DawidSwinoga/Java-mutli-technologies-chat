@@ -1,12 +1,13 @@
 package com.dawid.chat.api.impl;
 
-import com.dawid.chat.api.Credential;
-import com.dawid.chat.api.InvalidCredentialException;
-import com.dawid.chat.api.UserAlreadyLoggedInException;
+import com.dawid.chat.api.user.UserAlreadyLoggedInException;
+import com.dawid.chat.api.user.credential.Credential;
+import com.dawid.chat.api.user.credential.InvalidCredentialException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,5 +45,9 @@ public class UserService {
     public void logout(Credential credential) {
         Optional<User> user = getUser(credential);
         user.ifPresent(userRepository::remove);
+    }
+
+    public Collection<String> getAllUsersIds() {
+        return userRepository.getAllUsersIds();
     }
 }

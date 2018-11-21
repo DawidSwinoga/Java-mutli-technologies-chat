@@ -1,6 +1,6 @@
 package com.dawid.chat.api.impl;
 
-import com.dawid.chat.api.Credential;
+import com.dawid.chat.api.user.credential.Credential;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 

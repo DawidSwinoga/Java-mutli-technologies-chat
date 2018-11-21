@@ -1,7 +1,9 @@
-package com.dawid.chat.api;
+package com.dawid.chat.api.message;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 /**
@@ -9,7 +11,8 @@ import java.time.Instant;
  */
 
 @AllArgsConstructor
-public class MessageDto {
+@Getter
+public class MessageDto implements Serializable {
     private final Instant dateTime;
     private final String text;
     private final String author;

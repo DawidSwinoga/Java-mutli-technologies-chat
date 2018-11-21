@@ -1,10 +1,10 @@
 package com.dawid.chat.api.impl;
 
-import com.dawid.chat.api.ChanneNotExistException;
-import com.dawid.chat.api.ChannelInfo;
-import com.dawid.chat.api.Credential;
-import com.dawid.chat.api.InvalidCredentialException;
-import com.dawid.chat.api.MessageDto;
+import com.dawid.chat.api.channel.ChanneNotExistException;
+import com.dawid.chat.api.channel.ChannelInfo;
+import com.dawid.chat.api.message.MessageDto;
+import com.dawid.chat.api.user.credential.Credential;
+import com.dawid.chat.api.user.credential.InvalidCredentialException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class ChannelService {
         channel.addUser(user);
     }
 
-    private Channel getChannelOrThrowException(String id) {
+    public Channel getChannelOrThrowException(String id) {
         return channelRepository.getById(id).orElseThrow(ChanneNotExistException::new);
     }
 
