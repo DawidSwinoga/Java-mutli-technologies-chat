@@ -1,6 +1,6 @@
 package com.dawid;
 
-import com.dawid.chat.api.impl.MessageSender;
+import com.dawid.chat.api.impl.message.MessageSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Async;

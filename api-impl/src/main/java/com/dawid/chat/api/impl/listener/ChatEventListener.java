@@ -1,13 +1,13 @@
 package com.dawid.chat.api.impl.listener;
 
-import com.dawid.chat.api.impl.ChannelAddedEvent;
-import com.dawid.chat.api.impl.ChannelRemovedEvent;
-import com.dawid.chat.api.impl.ChannelService;
-import com.dawid.chat.api.impl.MessageEvent;
-import com.dawid.chat.api.impl.MessageSender;
-import com.dawid.chat.api.impl.UserJoinToChatEvent;
-import com.dawid.chat.api.impl.UserLeaveChatEvent;
-import com.dawid.chat.api.impl.UserService;
+import com.dawid.chat.api.impl.channel.ChannelAddedEvent;
+import com.dawid.chat.api.impl.channel.ChannelRemovedEvent;
+import com.dawid.chat.api.impl.channel.ChannelService;
+import com.dawid.chat.api.impl.message.MessageEvent;
+import com.dawid.chat.api.impl.message.MessageSender;
+import com.dawid.chat.api.impl.user.UserJoinToChatEvent;
+import com.dawid.chat.api.impl.user.UserLeaveChatEvent;
+import com.dawid.chat.api.impl.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

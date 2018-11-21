@@ -1,6 +1,8 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.channel;
 
 import com.dawid.chat.api.channel.ChannelInfo;
+import com.dawid.chat.api.impl.message.Message;
+import com.dawid.chat.api.impl.user.User;
 import com.dawid.chat.api.message.MessageDto;
 import com.dawid.chat.api.user.UserIsNotChannelMemberException;
 

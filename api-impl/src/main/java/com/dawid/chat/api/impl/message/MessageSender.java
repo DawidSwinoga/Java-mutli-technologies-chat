@@ -1,4 +1,4 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.message;
 
 /**
  * Created by Dawid on 20.11.2018 at 22:09.

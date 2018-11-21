@@ -1,7 +1,9 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.channel;
 
-import com.dawid.chat.api.channel.ChanneNotExistException;
 import com.dawid.chat.api.channel.ChannelInfo;
+import com.dawid.chat.api.channel.ChannelNotExistException;
+import com.dawid.chat.api.impl.user.User;
+import com.dawid.chat.api.impl.user.UserService;
 import com.dawid.chat.api.message.MessageDto;
 import com.dawid.chat.api.user.credential.Credential;
 import com.dawid.chat.api.user.credential.InvalidCredentialException;
@@ -39,7 +41,7 @@ public class ChannelService {
     }
 
     public Channel getChannelOrThrowException(String id) {
-        return channelRepository.getById(id).orElseThrow(ChanneNotExistException::new);
+        return channelRepository.getById(id).orElseThrow(ChannelNotExistException::new);
     }
 
     public void leaveChannel(String channelToken, Credential credential) {

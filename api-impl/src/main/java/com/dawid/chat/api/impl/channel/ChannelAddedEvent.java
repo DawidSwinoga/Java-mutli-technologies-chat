@@ -1,4 +1,4 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.channel;
 
 import com.dawid.chat.api.channel.ChannelInfo;
 import lombok.EqualsAndHashCode;

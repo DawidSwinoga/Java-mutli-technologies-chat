@@ -1,6 +1,8 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.channel;
 
 import com.dawid.chat.api.channel.ChannelAlreadyExistException;
+import com.dawid.chat.api.impl.InMemoryRepository;
+import com.dawid.chat.api.impl.user.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;

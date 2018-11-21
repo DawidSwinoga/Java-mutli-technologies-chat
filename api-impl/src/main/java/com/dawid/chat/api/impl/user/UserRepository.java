@@ -1,4 +1,4 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.user;
 
 import java.util.Collection;
 import java.util.Optional;

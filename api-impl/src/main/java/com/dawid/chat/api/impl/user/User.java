@@ -1,4 +1,4 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.user;
 
 import com.dawid.chat.api.user.credential.Credential;
 import lombok.EqualsAndHashCode;

@@ -1,4 +1,4 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.message;
 
 import com.dawid.chat.api.message.ChannelMessage;
 import lombok.Value;

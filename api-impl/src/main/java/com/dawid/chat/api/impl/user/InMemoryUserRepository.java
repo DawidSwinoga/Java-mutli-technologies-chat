@@ -1,5 +1,6 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.user;
 
+import com.dawid.chat.api.impl.InMemoryRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;

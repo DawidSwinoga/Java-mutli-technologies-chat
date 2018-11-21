@@ -1,5 +1,6 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.api.impl.message;
 
+import com.dawid.chat.api.impl.user.User;
 import lombok.Value;
 
 import java.time.Instant;
