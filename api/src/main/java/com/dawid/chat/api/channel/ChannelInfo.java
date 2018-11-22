@@ -1,5 +1,6 @@
 package com.dawid.chat.api.channel;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 
 @RequiredArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class ChannelInfo implements Serializable {
     private final String channelId;
     private final String name;

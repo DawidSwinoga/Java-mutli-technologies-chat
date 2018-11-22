@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static java.util.Optional.ofNullable;
+
 /**
  * Created by Dawid on 17.11.2018 at 15:13.
  */
@@ -21,7 +23,8 @@ public class InMemoryChannelRepository implements ChannelRepository, InMemoryRep
     @Override
     public Channel createChannel(String channelName, User user) {
         String id = generateId();
-        Channel channel = nameChannel.putIfAbsent(id, new Channel(id, channelName, user));
+        Channel channel = ofNullable(nameChannel.putIfAbsent(channelName, new Channel(id, channelName, user)))
+                .orElseGet(() -> nameChannel.get(channelName));
         if (!channel.isIdValid(id)) {
             throw new ChannelAlreadyExistException();
         }

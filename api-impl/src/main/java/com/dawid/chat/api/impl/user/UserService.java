@@ -32,7 +32,7 @@ public class UserService {
 
     public void validateUserCredential(Credential userCredential) {
         String userToken = userCredential.getToken();
-        userRepository.getUserById(userCredential.getUsername())
+        userRepository.getUserById(userToken)
                 .map(User::getToken)
                 .filter(userToken::equals)
                 .orElseThrow(InvalidCredentialException::new);
