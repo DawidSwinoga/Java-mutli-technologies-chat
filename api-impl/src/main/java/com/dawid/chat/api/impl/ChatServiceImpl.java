@@ -11,6 +11,7 @@ import com.dawid.chat.api.message.MessageToSend;
 import com.dawid.chat.api.user.CreateUserDto;
 import com.dawid.chat.api.user.credential.Credential;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
  * Created by Dawid on 16.11.2018 at 16:21.
  */
 
+@Primary
 @Service
 @RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService {

@@ -55,11 +55,6 @@
                 <artifactId>commons</artifactId>
                 <version>${version}</version>
             </dependency>
-            <dependency>
-                <groupId>io.projectreactor</groupId>
-                <artifactId>reactor-bus</artifactId>
-                <version>${project.reactor.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
