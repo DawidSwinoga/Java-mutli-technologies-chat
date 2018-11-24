@@ -1,13 +1,16 @@
 package com.dawid.chat.client;
 
 import com.dawid.chat.api.ChatService;
+import com.dawid.chat.api.channel.ChannelActionDto;
 import com.dawid.chat.api.channel.ChannelAddedEvent;
 import com.dawid.chat.api.channel.ChannelAlreadyExistException;
 import com.dawid.chat.api.channel.ChannelInfo;
 import com.dawid.chat.api.channel.ChannelRemovedEvent;
+import com.dawid.chat.api.channel.CreateChannelDto;
 import com.dawid.chat.api.message.MessageDto;
 import com.dawid.chat.api.message.MessageEvent;
 import com.dawid.chat.api.message.MessageToSend;
+import com.dawid.chat.api.user.CreateUserDto;
 import com.dawid.chat.api.user.UserAlreadyLoggedInException;
 import com.dawid.chat.api.user.UserDto;
 import com.dawid.chat.api.user.UserJoinToChatEvent;
@@ -124,7 +127,7 @@ public class SampleController {
 
     @FXML
     private void onRemoveButtonClick() {
-        chatService.removeChannel(selectedChannel.getChannelId(), credential);
+        chatService.removeChannel(new ChannelActionDto(selectedChannel.getChannelId(), credential));
         removeChannel(selectedChannel);
     }
 
@@ -155,8 +158,9 @@ public class SampleController {
     }
 
     private void requestChannel(String channelId) {
-        chatService.joinToChannel(channelId, credential);
-        List<MessageDto> channelMessage = chatService.getChannelMessage(channelId, credential);
+        ChannelActionDto channelActionDto = new ChannelActionDto(channelId, credential);
+        chatService.joinToChannel(channelActionDto);
+        List<MessageDto> channelMessage = chatService.getChannelMessage(channelActionDto);
         runLater(() -> channelMessage.forEach(messageEvent -> onMessage(channelId, messageEvent)));
     }
 
@@ -179,7 +183,7 @@ public class SampleController {
     @FXML
     private void onLoginButtonClicked() {
         try {
-            credential = chatService.loginUser(username.getText(), ApiConfiguration.QUEUE_DESTINATION_NAME);
+            credential = chatService.loginUser(new CreateUserDto(username.getText(), ApiConfiguration.QUEUE_DESTINATION_NAME));
             loginButton.setVisible(false);
             username.setDisable(true);
             executorService.submit(this::showChannels);
@@ -195,7 +199,7 @@ public class SampleController {
 
     private void createChannel() {
         try {
-            chatService.createChannel(channelNameTextField.getText(), credential);
+            chatService.createChannel(new CreateChannelDto(channelNameTextField.getText(), credential));
         } catch (ChannelAlreadyExistException e) {
             runLater(() -> showDialogError("Channel already exist"));
         }

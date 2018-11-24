@@ -1,11 +1,14 @@
 package com.dawid.chat.api.impl;
 
 import com.dawid.chat.api.ChatService;
+import com.dawid.chat.api.channel.ChannelActionDto;
 import com.dawid.chat.api.channel.ChannelInfo;
+import com.dawid.chat.api.channel.CreateChannelDto;
 import com.dawid.chat.api.impl.channel.ChannelService;
 import com.dawid.chat.api.impl.user.UserService;
 import com.dawid.chat.api.message.MessageDto;
 import com.dawid.chat.api.message.MessageToSend;
+import com.dawid.chat.api.user.CreateUserDto;
 import com.dawid.chat.api.user.credential.Credential;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,28 +26,23 @@ public class ChatServiceImpl implements ChatService {
     private final ChannelService channelService;
 
     @Override
-    public Credential loginUser(String username, String queueDestinationName) {
-        return userService.login(username, queueDestinationName);
+    public Credential loginUser(CreateUserDto createUserDto) {
+        return userService.login(createUserDto.getUsername(), createUserDto.getQueueDestinationName());
     }
 
     @Override
-    public ChannelInfo createChannel(String name, Credential credential) {
-        return channelService.createChannel(name, credential);
+    public void createChannel(CreateChannelDto createChannelDto) {
+        channelService.createChannel(createChannelDto.getName(), createChannelDto.getCredential());
     }
 
     @Override
-    public void removeChannel(String channelId, Credential credential) {
-        channelService.removeChannel(channelId, credential);
+    public void removeChannel(ChannelActionDto channelActionDto) {
+        channelService.removeChannel(channelActionDto.getChannelId(), channelActionDto.getCredential());
     }
 
     @Override
-    public void joinToChannel(String channelToken, Credential credential) {
-        channelService.joinToChannel(channelToken, credential);
-    }
-
-    @Override
-    public void leaveChannel(String channelToken, Credential credential) {
-        channelService.leaveChannel(channelToken, credential);
+    public void joinToChannel(ChannelActionDto channelActionDto) {
+        channelService.joinToChannel(channelActionDto.getChannelId(), channelActionDto.getCredential());
     }
 
     @Override
@@ -59,8 +57,8 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<MessageDto> getChannelMessage(String channelToken, Credential credential) {
-        return channelService.getChannelMessage(channelToken, credential);
+    public List<MessageDto> getChannelMessage(ChannelActionDto channelActionDto) {
+        return channelService.getChannelMessage(channelActionDto.getChannelId(), channelActionDto.getCredential());
     }
 
     @Override
