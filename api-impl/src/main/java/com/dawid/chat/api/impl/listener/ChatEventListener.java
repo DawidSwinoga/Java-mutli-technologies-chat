@@ -1,13 +1,13 @@
 package com.dawid.chat.api.impl.listener;
 
-import com.dawid.chat.api.impl.channel.ChannelAddedEvent;
-import com.dawid.chat.api.impl.channel.ChannelRemovedEvent;
+import com.dawid.chat.api.channel.ChannelAddedEvent;
+import com.dawid.chat.api.channel.ChannelRemovedEvent;
 import com.dawid.chat.api.impl.channel.ChannelService;
-import com.dawid.chat.api.impl.message.MessageEvent;
 import com.dawid.chat.api.impl.message.MessageSender;
-import com.dawid.chat.api.impl.user.UserJoinToChatEvent;
-import com.dawid.chat.api.impl.user.UserLeaveChatEvent;
 import com.dawid.chat.api.impl.user.UserService;
+import com.dawid.chat.api.message.MessageEvent;
+import com.dawid.chat.api.user.UserJoinToChatEvent;
+import com.dawid.chat.api.user.UserLeaveChatEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ public class ChatEventListener {
 
     @EventListener
     public void messageSend(MessageEvent messageEvent) {
-        String channelId = messageEvent.getChannelMessage().getChannelId();
+        String channelId = messageEvent.getChannelId();
         notifyChannelUser(channelId, messageEvent);
     }
 
@@ -54,16 +54,17 @@ public class ChatEventListener {
     }
 
     private void notifyChannelUser(String channelId, Object messageEvent) {
-        Collection<String> membersIds = channelService.getChannelOrThrowException(channelId).getMembersIds();
-        membersIds.forEach(it -> notifyUser(it, messageEvent));
+        Collection<String> usersQueuesDestinationNames = channelService.getChannelOrThrowException(channelId)
+                .getUsersQueuesDestinationNames();
+        usersQueuesDestinationNames.forEach(it -> notifyUser(it, messageEvent));
     }
 
-    private <T> void notifyUser(String userId, T data) {
-        messageSender.sendMessage(userId, data);
+    private <T> void notifyUser(String queueDestinationName, T data) {
+        messageSender.sendMessage(queueDestinationName, data);
     }
 
     private <T> void notifyAllUsers(T event) {
-        Collection<String> membersIds = userService.getAllUsersIds();
+        Collection<String> membersIds = userService.getAllUsersQueueDestinationName();
         membersIds.forEach(it -> notifyUser(it, event));
     }
 }

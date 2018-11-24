@@ -30,6 +30,7 @@
         <module>client</module>
         <module>api</module>
         <module>api-impl</module>
+        <module>commons</module>
     </modules>
 
     <dependencyManagement>
@@ -47,6 +48,11 @@
             <dependency>
                 <groupId>com.dawid</groupId>
                 <artifactId>api-impl</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dawid</groupId>
+                <artifactId>commons</artifactId>
                 <version>${version}</version>
             </dependency>
             <dependency>

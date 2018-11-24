@@ -2,6 +2,7 @@ package com.dawid.chat.api.impl.user;
 
 import com.dawid.chat.api.user.credential.Credential;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -10,10 +11,13 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode(of = {"userCredential"})
+@Getter
 public class User {
     private final Credential userCredential;
+    private final String queueDestinationName;
 
-    public User(String username, String token) {
+    public User(String username, String token, String queueDestinationName) {
+        this.queueDestinationName = queueDestinationName;
         this.userCredential = new Credential(token, username);
     }
 

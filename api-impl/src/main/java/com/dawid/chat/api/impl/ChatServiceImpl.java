@@ -23,13 +23,18 @@ public class ChatServiceImpl implements ChatService {
     private final ChannelService channelService;
 
     @Override
-    public Credential loginUser(String username) {
-        return userService.login(username);
+    public Credential loginUser(String username, String queueDestinationName) {
+        return userService.login(username, queueDestinationName);
     }
 
     @Override
     public ChannelInfo createChannel(String name, Credential credential) {
         return channelService.createChannel(name, credential);
+    }
+
+    @Override
+    public void removeChannel(String channelId, Credential credential) {
+        channelService.removeChannel(channelId, credential);
     }
 
     @Override

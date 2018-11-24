@@ -4,13 +4,16 @@ import com.dawid.chat.api.channel.ChannelInfo;
 import com.dawid.chat.api.impl.message.Message;
 import com.dawid.chat.api.impl.user.User;
 import com.dawid.chat.api.message.MessageDto;
+import com.dawid.chat.api.user.UserDto;
 import com.dawid.chat.api.user.UserIsNotChannelMemberException;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -30,7 +33,7 @@ public class Channel {
         this.id = id;
         this.name = name;
         this.administrator = administrator;
-        this.users = new CopyOnWriteArraySet<>();
+        this.users = new CopyOnWriteArraySet<>(Collections.singleton(administrator));
         this.messages = new CopyOnWriteArrayList<>();
     }
 
@@ -56,7 +59,11 @@ public class Channel {
     }
 
     public ChannelInfo toChannelInfo() {
-        return new ChannelInfo(id, name);
+        return new ChannelInfo(id, name, getUsersDtos(), new UserDto(administrator.getUsername()));
+    }
+
+    public List<UserDto> getUsersDtos() {
+        return users.stream().map(it -> new UserDto(it.getUsername())).collect(toList());
     }
 
     public void validChannelMember(User user) {
@@ -74,11 +81,21 @@ public class Channel {
         return new MessageDto(message.getDateTime(), message.getText(), message.getAuthor().getUsername());
     }
 
-    public void addMessage(User user, String text) {
-        messages.add(new Message(user, text));
+    public Message addMessage(User user, String text) {
+        Message message = new Message(user, text);
+        messages.add(message);
+        return message;
     }
 
     public Collection<String> getMembersIds() {
         return users.stream().map(User::getToken).collect(toSet());
+    }
+
+    public Collection<String> getUsersQueuesDestinationNames() {
+        return users.stream().map(User::getQueueDestinationName).collect(Collectors.toList());
+    }
+
+    public boolean isAdministrator(User user) {
+        return administrator.equals(user);
     }
 }

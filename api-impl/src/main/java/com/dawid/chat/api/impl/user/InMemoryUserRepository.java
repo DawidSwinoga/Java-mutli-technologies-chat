@@ -20,8 +20,8 @@ public class InMemoryUserRepository implements UserRepository, InMemoryRepositor
     private final Map<String, User> usernameUsers = new ConcurrentHashMap<>();
 
     @Override
-    public String loginUser(String username, String token) {
-        return ofNullable(usernameUsers.putIfAbsent(username, new User(username, token)))
+    public String loginUser(String username, String token, String queueDestinationName) {
+        return ofNullable(usernameUsers.putIfAbsent(username, new User(username, token, queueDestinationName)))
                 .orElseGet(() -> usernameUsers.get(username))
                 .getToken();
     }
@@ -39,5 +39,10 @@ public class InMemoryUserRepository implements UserRepository, InMemoryRepositor
     @Override
     public Collection<String> getAllUsersIds() {
         return usernameUsers.values().stream().map(User::getToken).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Collection<String> getAllUsersQueueDestinationNames() {
+        return usernameUsers.values().stream().map(User::getQueueDestinationName).collect(Collectors.toSet());
     }
 }

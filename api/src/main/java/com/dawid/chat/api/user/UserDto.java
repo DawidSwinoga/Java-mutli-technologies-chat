@@ -1,5 +1,6 @@
 package com.dawid.chat.api.user;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
  */
 
 @RequiredArgsConstructor
+@Getter
 public class UserDto implements Serializable {
     private final String username;
 }

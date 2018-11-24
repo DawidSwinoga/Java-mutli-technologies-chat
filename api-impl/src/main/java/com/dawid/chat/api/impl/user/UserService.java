@@ -20,9 +20,9 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Credential login(String username) {
+    public Credential login(String username, String queueDestinationName) {
         String token = UUID.randomUUID().toString();
-        String savedToken = userRepository.loginUser(username, token);
+        String savedToken = userRepository.loginUser(username, token, queueDestinationName);
 
         if (!StringUtils.equals(savedToken, token)) {
             throw new UserAlreadyLoggedInException();
@@ -49,5 +49,9 @@ public class UserService {
 
     public Collection<String> getAllUsersIds() {
         return userRepository.getAllUsersIds();
+    }
+
+    public Collection<String> getAllUsersQueueDestinationName() {
+        return userRepository.getAllUsersQueueDestinationNames();
     }
 }

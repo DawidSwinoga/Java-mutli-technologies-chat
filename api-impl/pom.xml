@@ -22,5 +22,17 @@
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-bus</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.dawid</groupId>
+            <artifactId>commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dawid</groupId>
+            <artifactId>commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dawid</groupId>
+            <artifactId>commons</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -19,4 +19,6 @@ public interface ChannelRepository {
     Collection<Channel> getAll();
 
     void removeFromChannels(User user);
+
+    void remove(Channel channel);
 }

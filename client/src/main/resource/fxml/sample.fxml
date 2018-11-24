@@ -4,21 +4,19 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dawid.chat.client.SampleController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dawid.chat.client.SampleController">
    <left>
       <ListView fx:id="channelsListView" onMouseClicked="#channelListClicked" prefHeight="454.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </left>
-   <center>
-      <ListView fx:id="messagesListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
    <right>
       <ListView fx:id="usersListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <AnchorPane prefHeight="42.0" prefWidth="878.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="43.0" prefWidth="868.0" BorderPane.alignment="CENTER">
          <children>
             <ComboBox fx:id="communicationMethodComboBox" layoutX="652.0" layoutY="9.0" onAction="#onCommunicationMethodChanged" prefWidth="150.0" />
             <Label layoutX="494.0" layoutY="13.0" text="Communication Method" />
@@ -28,11 +26,21 @@
       </AnchorPane>
    </bottom>
    <top>
-      <AnchorPane prefHeight="38.0" prefWidth="878.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="39.0" prefWidth="873.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="channelNameTextField" layoutX="341.0" layoutY="7.0" promptText="channel name" />
             <Button layoutX="514.0" layoutY="7.0" mnemonicParsing="false" onAction="#onAddChannelButtonClicked" text="Add channel" />
+            <Button fx:id="removeChannelButton" layoutX="197.0" layoutY="7.0" mnemonicParsing="false" onAction="#onRemoveButtonClick" prefHeight="25.0" prefWidth="108.0" text="Remove channel" visible="false" />
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="messagesListView" prefHeight="454.0" prefWidth="549.0" AnchorPane.bottomAnchor="38.0" />
+            <TextArea fx:id="messageTextArea" layoutX="1.0" layoutY="454.0" prefHeight="37.0" prefWidth="470.0" promptText="Send message" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="78.0" />
+            <Button layoutX="483.0" layoutY="454.0" mnemonicParsing="false" onAction="#onMessageSendClicked" prefHeight="38.0" prefWidth="59.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="7.0" />
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

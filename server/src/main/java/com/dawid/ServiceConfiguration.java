@@ -7,8 +7,6 @@ import org.springframework.remoting.caucho.BurlapServiceExporter;
 import org.springframework.remoting.caucho.HessianServiceExporter;
 import org.springframework.remoting.support.RemoteExporter;
 import org.springframework.scheduling.annotation.EnableAsync;
-import reactor.Environment;
-import reactor.bus.EventBus;
 
 /**
  * Created by Dawid on 16.11.2018 at 16:08.
@@ -31,15 +29,5 @@ public class ServiceConfiguration {
         exporter.setService(service);
         exporter.setServiceInterface(ChatService.class);
         return exporter;
-    }
-
-    @Bean
-    Environment env() {
-        return Environment.initializeIfEmpty().assignErrorJournal();
-    }
-
-    @Bean
-    EventBus createEventBus(Environment env) {
-        return EventBus.create(env, Environment.THREAD_POOL);
     }
 }

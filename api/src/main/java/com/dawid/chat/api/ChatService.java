@@ -11,8 +11,9 @@ import java.util.List;
  * Created by Dawid on 16.11.2018 at 16:21.
  */
 public interface ChatService {
-    Credential loginUser(String username);
+    Credential loginUser(String username, String queueDestinationName);
     ChannelInfo createChannel(String name, Credential credential);
+    void removeChannel(String channelId, Credential credential);
     void joinToChannel(String channelToken, Credential credential);
     void leaveChannel(String channelToken, Credential credential);
     void logout(Credential credential);

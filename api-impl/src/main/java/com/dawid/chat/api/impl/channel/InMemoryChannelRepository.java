@@ -45,4 +45,9 @@ public class InMemoryChannelRepository implements ChannelRepository, InMemoryRep
     public void removeFromChannels(User user) {
         nameChannel.values().forEach(it -> it.removeUser(user));
     }
+
+    @Override
+    public void remove(Channel channel) {
+        nameChannel.remove(channel.getName(), channel);
+    }
 }

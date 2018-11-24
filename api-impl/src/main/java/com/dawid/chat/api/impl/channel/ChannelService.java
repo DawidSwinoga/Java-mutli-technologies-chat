@@ -1,16 +1,22 @@
 package com.dawid.chat.api.impl.channel;
 
+import com.dawid.chat.api.channel.ChannelAddedEvent;
 import com.dawid.chat.api.channel.ChannelInfo;
 import com.dawid.chat.api.channel.ChannelNotExistException;
+import com.dawid.chat.api.channel.ChannelRemovedEvent;
+import com.dawid.chat.api.impl.message.Message;
 import com.dawid.chat.api.impl.user.User;
 import com.dawid.chat.api.impl.user.UserService;
 import com.dawid.chat.api.message.MessageDto;
+import com.dawid.chat.api.message.MessageEvent;
 import com.dawid.chat.api.user.credential.Credential;
 import com.dawid.chat.api.user.credential.InvalidCredentialException;
+import com.dawid.chat.commons.ChatEventPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -23,11 +29,14 @@ import static java.util.stream.Collectors.toList;
 public class ChannelService {
     private final UserService userService;
     private final ChannelRepository channelRepository;
+    private final ChatEventPublisher chatEventPublisher;
 
     public ChannelInfo createChannel(String channelName, Credential userCredential) {
         User user = getUserOrThrowException(userCredential);
         Channel channel = channelRepository.createChannel(channelName, user);
-        return new ChannelInfo(channel.getId(), channel.getName());
+
+        chatEventPublisher.publishEvent(new ChannelAddedEvent(channel.toChannelInfo()));
+        return channel.toChannelInfo();
     }
 
     private User getUserOrThrowException(Credential userCredential) {
@@ -71,6 +80,21 @@ public class ChannelService {
         User user = getUserOrThrowException(credential);
         Channel channel = getChannelOrThrowException(channelToken);
         channel.validChannelMember(user);
-        channel.addMessage(user, text);
+        Message message = channel.addMessage(user, text);
+        chatEventPublisher.publishEvent(new MessageEvent(message.getDateTime(), message.getText(), message.getUsername(),
+                channel.getId()));
+    }
+
+    public void removeChannel(String channelId, Credential credential) {
+        Optional<User> user = userService.getUser(credential);
+        Channel channel = getChannelOrThrowException(channelId);
+        user.ifPresent(it -> removeChannel(it, channel));
+    }
+
+    private void removeChannel(User user, Channel channel) {
+        if (channel.isAdministrator(user)) {
+            channelRepository.remove(channel);
+            chatEventPublisher.publishEvent(new ChannelRemovedEvent(channel.toChannelInfo()));
+        }
     }
 }

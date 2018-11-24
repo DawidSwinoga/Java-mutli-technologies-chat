@@ -1,4 +1,4 @@
-package com.dawid.chat.api.impl;
+package com.dawid.chat.commons;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
