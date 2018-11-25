@@ -1,0 +1,61 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.dawid.chat.commons;
+
+service ChatService {
+    rpc loginUser (CreateUser) returns (CredentialDto);
+    rpc createChannel (CreateChannel) returns (Empty);
+    rpc removeChannel (ChannelAction) returns (Empty);
+    rpc joinToChannel (ChannelAction) returns (Empty);
+    rpc logout (CredentialDto) returns (Empty);
+    rpc getAllChannels (CredentialDto) returns (stream ChannelInfoDto);
+    rpc getChannelMessages (ChannelAction) returns (stream Message);
+    rpc sendMessage (MessageToSendDto) returns (Empty);
+}
+
+message CreateUser {
+    string username = 1;
+    string queueDestinationName = 2;
+}
+
+message CredentialDto {
+    string token = 1;
+    string username = 2;
+}
+
+message CreateChannel {
+    string name = 1;
+    CredentialDto credential = 2;
+}
+
+message ChannelAction {
+    string channelId = 1;
+    CredentialDto credential = 2;
+}
+
+message MessageToSendDto {
+    string channelToken = 1;
+    string text = 2;
+    CredentialDto credential = 3;
+}
+
+message Message {
+    int64 dateTime = 1;
+    string text = 2;
+    string author = 3;
+}
+
+message Empty {
+
+}
+
+message ChannelInfoDto {
+    string channelId = 1;
+    string name = 2;
+    User administrator = 3;
+    repeated User users = 4;
+}
+
+message User {
+    string username = 1;
+}

@@ -9,7 +9,8 @@ import lombok.Getter;
 public enum CommunicationMethod {
     HESSIAN("hessian"),
     BURLAP("burlap"),
-    REST("rest");
+    REST("rest"),
+    GRPC("grpc");
 
     final String beanName;
 

@@ -1,8 +1,12 @@
 package com.dawid.chat.client;
 
 import com.dawid.chat.api.ChatService;
+import com.dawid.chat.client.grpc.GrpcChatService;
 import com.dawid.chat.client.rest.RestChatApi;
 import com.dawid.chat.commons.ChatEventPublisher;
+import com.dawid.chat.commons.ChatServiceGrpc;
+import io.grpc.Channel;
+import io.grpc.ManagedChannelBuilder;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
@@ -49,6 +53,15 @@ public class ApiConfiguration {
     @Bean("rest")
     public ChatService restChatService(@Value("${api}") String hostName, RestTemplate restTemplate) {
         return new RestChatApi(restTemplate, hostName);
+    }
+
+    @Bean("grpc")
+    public ChatService grpcChatService(@Value("${server.hostname}") String hostname, @Value("${grpc.port}") int port) {
+        Channel channel = ManagedChannelBuilder.forAddress(hostname, port)
+                .usePlaintext()
+                .build();
+        ChatServiceGrpc.ChatServiceBlockingStub chatServiceBlockingStub = ChatServiceGrpc.newBlockingStub(channel);
+        return new GrpcChatService(chatServiceBlockingStub);
     }
 
     @Bean
