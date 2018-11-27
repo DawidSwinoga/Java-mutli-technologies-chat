@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import static com.dawid.chat.commons.ErrorCode.*;
+
 /**
  * Created by Dawid on 25.11.2018 at 00:22.
  */
@@ -18,16 +20,16 @@ public class RestErrorHandler {
     @ExceptionHandler(value
             = {UserAlreadyLoggedInException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ErrorCode.USER_ALREADY_EXIST, HttpStatus.CONFLICT);
+        return handleExceptionInternal(USER_ALREADY_EXIST, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(value
             = {ChannelAlreadyExistException.class})
     protected ResponseEntity<Object> handleChannelExist(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ErrorCode.CHANNEL_ALREADY_EXIST, HttpStatus.CONFLICT);
+        return handleExceptionInternal(CHANNEL_ALREADY_EXIST, HttpStatus.CONFLICT);
     }
 
     private ResponseEntity<Object> handleExceptionInternal(ErrorCode bodyOfResponse, HttpStatus conflict) {
-        return ResponseEntity.status(conflict).body(bodyOfResponse);
+        return ResponseEntity.status(conflict).body(bodyOfResponse.name());
     }
 }
